@@ -3,7 +3,7 @@ obj.__index = obj
 
 -- Metadata
 obj.name = "Rcmd"
-obj.version = "0.1"
+obj.version = "0.2"
 obj.author = "forkd4x <forkd4x@icloud.com>"
 obj.homepage = "https://github.com/forkd4x/Rcmd.spoon"
 obj.license = "MIT - https://opensource.org/licenses/MIT"
@@ -41,7 +41,7 @@ function obj:bindHotkeys(mapping)
         end)
       elseif type(name) == "string" then
         local app = hs.application.frontmostApplication()
-        if name:find(app:title()) then
+        if name == app:title() or name:find(app:title()) then
           app:hide()
         else
           hs.application.launchOrFocus(name)
