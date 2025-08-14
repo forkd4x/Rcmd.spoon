@@ -3,7 +3,7 @@ obj.__index = obj
 
 -- Metadata
 obj.name = "Rcmd"
-obj.version = "0.2"
+obj.version = "0.2.1"
 obj.author = "forkd4x <forkd4x@icloud.com>"
 obj.homepage = "https://github.com/forkd4x/Rcmd.spoon"
 obj.license = "MIT - https://opensource.org/licenses/MIT"
@@ -35,17 +35,19 @@ function obj:bindHotkeys(mapping)
     self.modal:bind(mods, key, function()
       if type(name) == "function" then
         self.modal:exit()
-        hs.timer.doAfter(0.1, function()
+        hs.timer.doAfter(0.05, function()
           name()
           self.modal:enter()
         end)
       elseif type(name) == "string" then
-        local app = hs.application.frontmostApplication()
-        if name == app:title() or name:find(app:title()) then
-          app:hide()
-        else
-          hs.application.launchOrFocus(name)
-        end
+        hs.timer.doAfter(0, function()
+          local app = hs.application.frontmostApplication()
+          if name == app:title() or name:find(app:title()) then
+            app:hide()
+          else
+            hs.application.launchOrFocus(name)
+          end
+        end)
       else
         hs.alert("[Rcmd] Invalid type: " .. type(name))
       end
